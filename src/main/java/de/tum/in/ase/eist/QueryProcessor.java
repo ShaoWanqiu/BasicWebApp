@@ -2,6 +2,7 @@ package de.tum.in.ase.eist;
 
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Locale;
 
 @Service
@@ -17,17 +18,16 @@ public class QueryProcessor {
            return "ShaoWanqiu";
         } else if(query.contains("largest")){
             String[] strings=query.split(":");
-            String number=strings[1];
+            String number=strings[1].trim();
             String[] numbers=number.split(",");
-            String number1=numbers[0].trim();
-            String number2=numbers[1].trim();
-            int n1=Integer.parseInt(number1);
-            int n2=Integer.parseInt(number2);
-            if(n1>n2){
-                return String.valueOf(n1);
-            }else{
-                return String.valueOf(n2);
+            int maxNumber=0;
+            for (String s : numbers) {
+                int n = Integer.parseInt(s.trim());
+                if (n > maxNumber) {
+                    maxNumber = n;
+                }
             }
+            return String.valueOf(maxNumber);
         } else if(query.contains("plus")){
             String[] strings=query.split("\\s+");
             String number1=strings[2].trim();
